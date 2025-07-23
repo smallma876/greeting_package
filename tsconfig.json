@@ -1,0 +1,27 @@
+/* 
+"Rollup se encarga de compilar y empaquetar el proyecto en uno o más bundles. 
+Un bundle es un archivo de salida que contiene todo el código fuente del proyecto, 
+junto con sus dependencias, una vez que ha sido procesado mediante el sistema de construcción. 
+Esto incluye la resolución de módulos, 
+la transformación del código (por ejemplo, mediante plugins o transpiladores como Babel o TypeScript), 
+y la optimización final del resultado."
+*/
+{
+    "compilerOptions": {
+        "declaration": true, // si es true genera archivos .d.ts
+        "declarationDir": "lib/types", // directorio donde los creará
+        // compila los archivos manteniendo lo que sea es6 y lo que sea más moderno lo lleva a versiones menores.
+        // el valor de target puede cambiar el valor por defecto de la propiedad lib, se aconseja no configurar lib.
+        "target": "es6",
+        // Le dice al compilador cómo debe encontrar un archivo cuando se utiliza una declaración import o require
+        // node solo soporta require
+        "moduleResolution": "node",
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "lib"
+    ]
+}

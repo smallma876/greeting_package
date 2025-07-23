@@ -1,0 +1,35 @@
+{
+  "name": "@sergio.mallma/greeting-package",
+  "version": "1.0.0",
+  "description": "This package is for greeting a person during the day",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smallma876/greeting_package"
+  },
+  "type": "module",
+  "main": "lib/index.cjs",
+  "exports": {
+    "import": {
+      "default": "./lib/index.esm.js",
+      "types": "./lib/types/index.d.ts"
+    },
+    "require": {
+      "default": "./lib/index.cjs",
+      "types": "./lib/types/index.d.ts"
+    }
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "sergiomallma",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^4.17.2",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.4.5"
+  }
+}
