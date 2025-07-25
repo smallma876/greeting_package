@@ -1,0 +1,39 @@
+# NOMBRE DEL WORKFLOW
+name: Release
+
+# ON: SOBRE QUE SE HARÁ
+# PUSH: SE HARÁ SOBRE PUSH EVENTS
+# BRANCHES: SE HARÁ SOBRE LA RAMA MAIN
+on:
+  push:
+    branches:
+      - main
+    
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+# LOS JOBS A EJECUTAR, UN WORKFLOW PUEDE TENER MUCHOS JOBS
+jobs:
+  # JOB DE TIPO RELEASE
+  release:
+    name: Release # NOMBRANDO RELEASE
+    runs-on: ubuntu-latest # SE LE DICE A GITHUB QUE CORRA ESTE JOB EN UNA MAQUINA UBUNTU-LATEST
+    steps:
+      - name: checkout repository code
+        uses: actions/checkout@v2 # EJECUTA UN GITBHUB ACTIONS, ESTE ACTION REVISA EL REPOSITORIO Y NOS DA ACCESO
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GIT_CHANGESET_TOKEN }}
+      - name: setup node.js
+        uses: actions/setup-node@v2 # ACTION QUE INSTALA NODE JS VERSION 20
+        with:
+          node-version: 20
+      - name: install dependencies
+        run: npm ci
+      - name: create release pull request
+        id: changeset_action
+        uses: changesets/action@v1 # ACTION HABILITADO POR CHANGESET PUEDE ABRIR UN PR Y PUBLICAR
+        with:
+          publish: npm run release-package
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_CHANGESET_TOKEN }} # EL TOKEN SE GENERA EN LOS SETTINGS DEL USUARIO Y LUEGO SE GUARDA COMO SECRETO EN LOS SETTINGS DEL REPOSITORIO
+          NPM_TOKEN: ${{ secrets.NPM_CHANGESET_TOKEN }} # EL TOKEN SE GENERA EN EL NPM REGISTRY EN LA CUENTA DEL USUARIO - GENERAR TOKEN
