@@ -13,8 +13,16 @@ y la optimización final del resultado."
         // compila los archivos manteniendo lo que sea es6 y lo que sea más moderno lo lleva a versiones menores.
         // el valor de target puede cambiar el valor por defecto de la propiedad lib, se aconseja no configurar lib.
         "target": "es6",
-        // Le dice al compilador cómo debe encontrar un archivo cuando se utiliza una declaración import o require
-        // node solo soporta require
+        // le dice a TypeScript cómo debe encontrar los archivos a los que haces referencia con tus sentencias import o require en el código
+        // las estrategias que existen son:
+        /* 
+            - node16 o nodenext: Versiones modernas de Node.js (v12 en adelante). Admite tanto esm como cjsm
+            - node10(antes node): Para versiones de Node.js anteriores a la v10. Admite solo cjsm(require)
+            - bundler: Para uso con empaquetadores (bundlers) como Webpack, Rollup, Vite, esbuild, etc. No exige extensiones de archivo
+              en los imports
+            - 
+
+        */
         "moduleResolution": "node",
     },
     "include": [
